@@ -2,7 +2,7 @@ FROM daocloud.io/library/php:7.1.8-fpm
 MAINTAINER wuyihao <303440188@qq.com>
 
 ARG CHANGE_SOURCE=true
-ARG INSTALL_TIDEWAYS=true
+ARG INSTALL_TIDEWAYS=false
 
 # Change China Sources
 COPY sources.list /etc/apt/china.sources.list
