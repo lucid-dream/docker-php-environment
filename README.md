@@ -48,7 +48,7 @@ vim .env
 sudo docker-compose up --build -d
 ```
 
-###### 启动成功访问 http://localhost 
+###### 启动成功访问 http://localhost
 
 ###### 参考资料
 ```
