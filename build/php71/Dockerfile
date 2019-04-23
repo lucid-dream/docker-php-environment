@@ -92,10 +92,6 @@ RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.ph
 		&& mv composer.phar /usr/local/bin/composer \     
 		&& composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
-
-RUN echo 'extension=psr.so' >> /usr/local/etc/php/php.ini
-RUN echo 'extension=phalcon.so' >> /usr/local/etc/php/php.ini
-
 ENV LC_ALL C.UTF-8
 
 
