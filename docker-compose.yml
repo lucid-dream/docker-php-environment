@@ -25,20 +25,10 @@ services:
       ports:
         - "9000:9000"
         - "9005:9005"
-      links:
-        - "mongo"
       volumes:
         - ${GLOBAL_APP_PATH}/www:/var/www
         - ${GLOBAL_APP_PATH}/components/php71/log:/var/log
         - ${GLOBAL_APP_PATH}/components/php71/conf.d/php.ini:/usr/local/etc/php/php.ini
         - ${GLOBAL_APP_PATH}/components/php71/conf.d/fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf
-
-  ### Mongo #########################################
-  mongo:
-      build:
-        context: ./build/mongo
-      privileged: true
-      ports:
-        - "27017:27017"
 
 
