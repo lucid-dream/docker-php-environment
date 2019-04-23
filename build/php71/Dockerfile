@@ -29,25 +29,33 @@ RUN docker-php-ext-install gd pdo_mysql gettext bcmath
 #################### 方式一
 
 ## 安装 tideways
-RUN if [ ${INSTALL_TIDEWAYS} = true ]; then \
-    echo 'deb http://s3-eu-west-1.amazonaws.com/qafoo-profiler/packages debian main' > /etc/apt/sources.list.d/tideways.list \
-    && wget -qO - https://s3-eu-west-1.amazonaws.com/qafoo-profiler/packages/EEB5E8F4.gpg | apt-key add - \
-    && apt-get install tideways-php tideways-daemon \
+#RUN if [ ${INSTALL_TIDEWAYS} = true ]; then \
+#    echo 'deb http://s3-eu-west-1.amazonaws.com/qafoo-profiler/packages debian main' > /etc/apt/sources.list.d/tideways.list \
+#    && wget -qO - https://s3-eu-west-1.amazonaws.com/qafoo-profiler/packages/EEB5E8F4.gpg | apt-key add - \
+#    && apt-get install tideways-php tideways-daemon \
 #    && cd /var/www \
 #    && git clone https://github.com/laynefyc/xhgui-branch.git \
 #    && cd /var/www/xhgui-branch \
 #    && php install.php \
-;fi
-
-
-# Psr
-COPY psr-0.6.1.tgz /home/psr.tgz
-RUN pecl install /home/psr.tgz
+#;fi
 
 # Swoole
 COPY swoole-4.2.9.tgz /home/swoole.tgz
 RUN pecl install /home/swoole.tgz \
 		&& docker-php-ext-enable swoole
+
+# Psr
+COPY psr-0.6.1.tgz /home/psr.tgz
+RUN pecl install /home/psr.tgz
+
+
+#Phalcon
+COPY cphalcon-3.2.4.tgz /home/cphalcon.tgz
+RUN tar -xvf /home/cphalcon.tgz -C /home \
+		&& cd /home/cphalcon-3.2.4/build \
+		&& ./install
+
+
 
 
 # GeoIp
@@ -75,13 +83,6 @@ RUN pecl install /home/xdebug.tgz \
 COPY redis-4.0.0.tgz /home/redis.tgz
 RUN pecl install /home/redis.tgz \ 
 		&& docker-php-ext-enable redis
-
-
-#Phalcon
-COPY cphalcon-3.4.2.tgz /home/cphalcon.tgz
-RUN tar -xvf /home/cphalcon.tgz -C /home \
-		&& cd /home/cphalcon-3.2.4/build \
-		&& ./install
 
 
 ### php composer
